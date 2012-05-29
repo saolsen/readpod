@@ -1,5 +1,5 @@
 (defproject readability-podcasts "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "Audio podcast of readability reading list."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}

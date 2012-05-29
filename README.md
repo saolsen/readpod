@@ -1,15 +1,18 @@
 # readability-podcasts
 
-I'm an app. Or maybe I'm a library? I haven't decided yet. 
+Lets you download your readability reading list as an audio podcast.
 
-The choice is up to you!
+## About
 
-## Usage
+This is just a prototype and runs on heroku. You can hit the endpoint
+and get your current reading list as an audio file.
 
-FIXME
+## TODO
 
-## License
+In a production system the audio processing should be
+decoupled from the api (should be pretty easy) The rendered articles
+should be saved somewhere to avoid re-rendering the same
+files. Also the actual way it's used needs some thinking through,
+(podcast of reading list vs rendering individual articles, etc...)
 
-Copyright © 2012 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
+This is just a proof of concept.
