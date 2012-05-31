@@ -1,4 +1,5 @@
-(ns readability-podcasts.core)
+(ns readability-podcasts.core
+  (:import com.sun.speech.freetts.Voice))
 
 (defn -main
   "I don't do a whole lot."
