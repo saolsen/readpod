@@ -1,4 +1,4 @@
-(defproject readability-podcasts "0.1.0-SNAPSHOT"
+(defproject readpod "0.1.0-SNAPSHOT"
   :description "Audio podcast of readability reading list."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -10,5 +10,5 @@
                  [org.mobicents.external.freetts/cmutimelex "1.0"]
                  [org.mobicents.external.freetts/cmu_time_awb "1.0"]
                  [org.mobicents.external.freetts/en_us "1.0"]
-                 [org.mobicents.external.freetts/cmu_us_kal "1.0"]]
-  :repositories {"local" ~(str (.toURI (java.io.File. "maven_local")))})
+                 [org.mobicents.external.freetts/cmu_us_kal "1.0"]])
+

@@ -1,4 +1,4 @@
-(ns readability-podcasts.tts
+(ns readpod.tts
   (:import
    (com.sun.speech.freetts Voice)
    (com.sun.speech.freetts VoiceManager)

@@ -1,4 +1,4 @@
-# readability-podcasts
+# readpod
 
 Lets you download your readability reading list as an audio podcast.
 

@@ -1,4 +1,4 @@
-(ns readability-podcasts.core
+(ns readpod.core
   (:import com.sun.speech.freetts.Voice))
 
 (defn -main
