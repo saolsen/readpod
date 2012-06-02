@@ -1,1 +1,1 @@
-web: lein trampoline run -m readpod.core
+web: lein trampoline run -m readpod.web
