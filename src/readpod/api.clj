@@ -12,13 +12,12 @@
 ;; Templates
 (html/deftemplate index "templates/index.html"
   [auth-url]
-  [:div#login] (html/content
+  [:div#login] (html/html-content
                 (str "<a href='" auth-url "'>Login</a>")))
 
 ;; Routes
 (defroutes main-routes
   (GET "/" [] (render (index "test-link")))
-  (GET "/" [] "test")
   (route/resources "/")
   (route/not-found "Page not found"))
 
