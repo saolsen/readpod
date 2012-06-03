@@ -4,8 +4,8 @@ Lets you download your readability reading list as an audio podcast.
 
 ## About
 
-This is just a prototype and runs on heroku. You can hit the endpoint
-and get your current reading list as an audio file.
+This is just a prototype and runs on heroku. After authenticating you
+can see your reading list and download the articles as audio files.
 
 ## TODO
 
@@ -15,4 +15,4 @@ should be saved somewhere to avoid re-rendering the same
 files. Also the actual way it's used needs some thinking through,
 (podcast of reading list vs rendering individual articles, etc...)
 
-This is just a proof of concept.
+[readpod.herokuapp.com](http://readpod.herokuapp.com)
