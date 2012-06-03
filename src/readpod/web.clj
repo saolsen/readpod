@@ -2,10 +2,9 @@
   (:require [readpod.api :as api])
   (:use ring.adapter.jetty))
 
-(defn handler [request]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body "Hello World"})
+;; How heroku starts it, locally I always use
+;; $ lein ring server
+;; Because it reloads every file that you save.
 
 (defn -main []
   (let [port (Integer/parseInt (System/getenv "PORT"))]

@@ -31,12 +31,9 @@
 
 (defn get-access-token
   [request-token verifier]
-  (do
-    (println request-token)
-    (println verifier)
-    (client/access-token consumer
-                         request-token
-                         verifier)))
+  (client/access-token consumer
+                       request-token
+                       verifier))
 
 (defn get-credentials
   [access-token method url params]
