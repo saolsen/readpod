@@ -23,7 +23,7 @@
 
 ;; Returns the filename.
 (defn render
-  "Renders Speech to Text"
+  "Renders text to speech."
   [text filename]
   (let [audioplayer (new SingleFileAudioPlayer (str "./" filename)
                          AudioFileFormat$Type/WAVE)]

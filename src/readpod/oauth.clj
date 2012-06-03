@@ -45,6 +45,7 @@
                       params))
 
 (defn request
+  "Makes a request with oauth"
   [access-token request-type url params]
   (let [type (to-upper-keyword request-type)
         choices {:GET http/get
