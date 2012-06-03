@@ -85,7 +85,7 @@
         audio-file (tts/render text id)]
     (do
       (clean-up id)
-      (resp/file-response (str id ".wav")))))
+      (resp/content-type (resp/file-response (str id ".wav")) "audio/wav"))))
 
 ;; Routes
 (defroutes main-routes
