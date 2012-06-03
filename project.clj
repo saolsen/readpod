@@ -8,6 +8,7 @@
                  [ring/ring-jetty-adapter "1.1.0"]
                  [compojure "1.1.0"]
                  [enlive "1.0.0"]
+                 [clj-oauth "1.3.1-SNAPSHOT"]
                  [org.mobicents.external.freetts/cmulex "1.0"]
                  [org.mobicents.external.freetts/freetts "1.0"]
                  [org.mobicents.external.freetts/cmudict04 "1.0"]
