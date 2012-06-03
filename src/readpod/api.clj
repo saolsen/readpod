@@ -3,7 +3,7 @@
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
             [net.cgrand.enlive-html :as html]
-            [readpod.readability :as read]
+            [readpod.oauth :as oauth]
             ))
 
 (defn render
@@ -20,22 +20,24 @@
   []
   )
 
+;; Page Handlers
 (defn main-handler
   "Main page handler, run once oauth is set up"
   [auth-token]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body (render mainpage)
-   :session {:credentials auth-token}})
+   :body (str auth-token)
+;;   :body (render (mainpage))
+   :session {:auth-token auth-token}})
 
 (defn index-handler
   "Main page, sets up the oauth request and gives the link."
   [request]
   (let [auth-token (:auth-token (:session request))]
     (if (nil? auth-token)
-      (let [request-token (read/get-request-token
+      (let [request-token (oauth/get-request-token
                            "http://localhost:8080/authenticated")
-            auth-url (read/get-auth-url request-token)]
+            auth-url (oauth/get-auth-url request-token)]
         {:status 200
          :headers {"Content-Type" "text/html"}
          :body (render (index auth-url))
@@ -50,13 +52,11 @@
         verifyer (:oauth_verifier params)
         oauth-token (:oauth_token params)
         request-token (:request-token (:session request))
-        auth-token (read/get-access-token request-token verifyer)]
+        auth-token (oauth/get-access-token request-token verifyer)]
     {:status 200
      :headers {"Content-Type" "text/html"}
-     :body "we did it!"
+     :body (str auth-token)
      :session {:request-token oauth-token :auth-token auth-token}}))
-
-
 
 ;; Routes
 (defroutes main-routes
