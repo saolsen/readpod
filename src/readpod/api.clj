@@ -70,7 +70,7 @@
   (let [auth-token (:auth-token (:session request))]
     (if (nil? auth-token)
       (let [request-token (oauth/get-request-token
-                           "http://localhost:8080/authenticated")
+                           "http://readpod.herokuapp.com/authenticated")
             auth-url (oauth/get-auth-url request-token)]
         (html-page (render (index auth-url))
                    {:request-token request-token}))
