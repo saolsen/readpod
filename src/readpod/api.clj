@@ -9,14 +9,23 @@
             [ring.util.response :as resp]
             [ring.middleware.file-info :as file]
             [clojure.string :as str]
+            [clojure.java.io :as io]
             ))
 
 ;; Agent that is used to clean up the audio files.
+;; Pretty much a huge misuse of agents but it lets me prototype this
+;; out fast.
 (defonce cleaner (agent nil))
 (defn clean-up
   "Waits awhile then deletes the audio file with that id."
   [id]
-  )
+  (let [clean (fn [x]
+                (do
+                  (. Thread (sleep 100000))
+                  (io/delete-file (str id ".wav"))
+                  nil))]
+    (send-off cleaner clean)))
+
 
 ;; Helpers
 (defn render
@@ -61,7 +70,7 @@
   (let [auth-token (:auth-token (:session request))]
     (if (nil? auth-token)
       (let [request-token (oauth/get-request-token
-                           "http://readpod.herokuapp.com/authenticated")
+                           "http://localhost:8080/authenticated")
             auth-url (oauth/get-auth-url request-token)]
         (html-page (render (index auth-url))
                    {:request-token request-token}))
@@ -87,7 +96,8 @@
         audio-file (tts/render text id)]
     (do
       (clean-up id)
-      (resp/content-type (resp/file-response (str id ".wav")) "audio/wav"))))
+      (println id)
+      (resp/file-response (str id ".wav")))))
 
 ;; Routes
 (defroutes main-routes
