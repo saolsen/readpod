@@ -8,6 +8,7 @@
             [readpod.tts :as tts]
             [ring.util.response :as resp]
             [ring.middleware.file-info :as file]
+            [clojure.string :as str]
             ))
 
 ;; Agent that is used to clean up the audio files.
@@ -39,7 +40,8 @@
   [title-id-pairs]
   [:ul#titles] (html/html-content
                 (apply str (map #(str "<li>" (:title %)
-                           " | <a href='/article/" (:id %) "'>Audio</a></li>")
+      " | "
+      "<a href='/article/" (:id %) ".wav'>Audio</a></li>")
                      title-id-pairs))))
 
 ;; Page Handlers
@@ -80,7 +82,7 @@
   [request]
   (let [params (:params request)
         auth-token (:auth-token (:session request))
-        id (:id params)
+        id (first (str/split (:id params) #".wav"))
         text (:content (:content (read/get-article-text auth-token id)))
         audio-file (tts/render text id)]
     (do
