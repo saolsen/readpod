@@ -6,6 +6,7 @@
             [readpod.oauth :as oauth]
             [readpod.readability :as read]
             [readpod.tts :as tts]
+            [readpod.env :as env]
             [ring.util.response :as resp]
             [ring.middleware.file-info :as file]
             [clojure.string :as str]
@@ -70,7 +71,9 @@
   (let [auth-token (:auth-token (:session request))]
     (if (nil? auth-token)
       (let [request-token (oauth/get-request-token
-                           "http://readpod.herokuapp.com/authenticated")
+                           (str "http://"
+                                (:BASEURL env/vars)
+                                ":8080/authenticated"))
             auth-url (oauth/get-auth-url request-token)]
         (html-page (render (index auth-url))
                    {:request-token request-token}))

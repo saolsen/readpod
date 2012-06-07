@@ -1,5 +1,6 @@
 (ns readpod.oauth
-  (:require [oauth.client :as client]
+  (:require [readpod.env :as env]
+            [oauth.client :as client]
             [com.twinql.clojure.http :as http]
             [clojure.string :as str]
             [clojure.data.json :as json]))
@@ -14,8 +15,8 @@
 ;; readability api.
 
 (def consumer (client/make-consumer
-               "steveolsen"
-               "2xLF2Kvb9NsbUFHsDh4UnUjdestnkBcw"
+               (:READAPIKEY env/vars)
+               (:READAPISECRET env/vars)
                "https://www.readability.com/api/rest/v1/oauth/request_token/"
                "https://www.readability.com/api/rest/v1/oauth/access_token/"
                "https://www.readability.com/api/rest/v1/oauth/authorize/"
@@ -59,10 +60,3 @@
             :as :json
             :query (merge credentials params)
             :parameters (http/map->params {:use-expect-continue false}))))
-
-;; Couple things used for testing
-(def my-token
-  {:oauth_token_secret "YtmxkcTyUqxFnRHy4ex6uBAS8U4nVght"
-   :oauth_token "Mh7tRQc3AmeABsshQv"
-   :oauth_callback_confirmed "true"})
-(def url-t "https://www.readability.com/api/rest/v1/bookmarks")
