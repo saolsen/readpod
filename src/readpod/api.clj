@@ -73,7 +73,7 @@
       (let [request-token (oauth/get-request-token
                            (str "http://"
                                 (:BASEURL env/vars)
-                                ":8080/authenticated"))
+                                "/authenticated"))
             auth-url (oauth/get-auth-url request-token)]
         (html-page (render (index auth-url))
                    {:request-token request-token}))
