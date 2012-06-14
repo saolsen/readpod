@@ -1,9 +1,16 @@
 (ns readpod.readability
-  (:require [readpod.oauth :as oa]))
+  (:require [clojure.string :as s]
+            [ring.util.codec :as c]
+            [readpod.oauth :as oa]))
 
-(def test-token
-  {:oauth_token_secret "yHkxZzREc9wC3AC24ak36KXzvz3wUXmv"
-   :oauth_token "DTkeQgQkXYzmH6LAcF" :oauth_callback_confirmed true})
+;; This is kind of hacky
+(defn content-to-string
+  "Takes the html representation of the article
+   and turns it into a string of text"
+  [content]
+  (-> content
+      (s/replace #"(&)([^;]*)(;)" " ")
+      (s/replace #"(<)([^<>]*)(>)" " ")))
 
 (defn get-reading-list
   "Retrieves the reading list for the user."
@@ -20,5 +27,6 @@
                   auth-token
                   :get
                   (str "https://www.readability.com/api/rest/v1/articles/" id)
-                  {})]
-    response))
+                  {})
+        content (:content (:content response))]
+    (content-to-string content)))

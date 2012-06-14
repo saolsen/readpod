@@ -5,11 +5,11 @@
    (com.sun.speech.freetts.audio JavaClipAudioPlayer)
    (com.sun.speech.freetts.audio SingleFileAudioPlayer)
    (javax.sound.sampled AudioFileFormat$Type)))
-;; In a production system this should probably run as some kind of
-;; background worker process so that it can be scaled seperately from
-;; the api. Consuming from a Queue of some sort. Done in process for
-;; this prototype so I could run it on heroku.
+;; This should probably be run as a background worker instead of
+;; in the api itself and a real system would want to store rendered
+;; articles somewhere to avoid re-rendering the same file multiple times.
 
+;; Using a java library called FreeTTS
 ;; Set system property so voicemanager can find voices.
 (System/setProperty
  "freetts.voices" "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory")
@@ -18,8 +18,7 @@
 (def voice-manager (. VoiceManager getInstance))
 
 ;; To create a voice, allocate it and give it an AudioPlayer,
-;; Currently we're saving it to the filename passed in. You'll
-;; want something uniqueish so you can get the file later.
+;; Currently we're saving it to the filename passed in.
 
 ;; Returns the filename.
 (defn render
@@ -35,6 +34,5 @@
     (.close audioplayer)
     filename))
 
-;; There is also lots of work that can be done here as far as the voice
-;; quaility is concerned. It's possible to import the CMU Arctic voices
-;; from festival which sound a lot nicer than this built-in kevin16 voice.
+;; I'm using the default freetts voice right now which isn't the
+;; greatest. There are other voices that can be used that sound better.
