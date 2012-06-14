@@ -37,7 +37,6 @@
 (defn main-page-handler
   "Main page of app, loaded once oauth is set up"
   [auth-token]
-  (println auth-token)
   (let [articles (read/get-reading-list auth-token)
         title-id-pairs (map (fn [x] {:title (:title (:article x))
                                      :id (:id (:article x))}) articles)]
@@ -70,7 +69,6 @@
 (defn article-handler
   "Turns the article into text and returns the audio file."
   [request]
-  (println "hello")
   (let [params (:params request)
         auth-token (:auth-token (:session request))
         id (first (str/split (:id params) #".wav"))
