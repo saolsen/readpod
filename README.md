@@ -2,6 +2,9 @@
 
 Lets you download your readability reading list as an audio podcast.
 
+Readpod has moved, this repository is no longer kept up to date.
+See https://github.com/arc90/readpod
+
 ## About
 
 This is just a prototype and runs on heroku. After authenticating you
