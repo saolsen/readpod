@@ -9,5 +9,5 @@ pom.xml
 .lein-failures
 .lein-plugins
 .env
-
+docs
 .DS_Store

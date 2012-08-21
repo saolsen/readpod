@@ -18,5 +18,6 @@
                  [org.mobicents.external.freetts/cmu_time_awb "1.0"]
                  [org.mobicents.external.freetts/en_us "1.0"]
                  [org.mobicents.external.freetts/cmu_us_kal "1.0"]]
+  :dev-dependencies [[lein-marginalia "0.7.1"]]
   :repositories {"local" ~(str (.toURI (java.io.File. "maven_local")))}
   :ring {:handler readpod.api/app})
