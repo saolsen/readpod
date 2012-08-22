@@ -9,7 +9,7 @@
                  [compojure "1.1.0"]
                  [enlive "1.0.0"]
                  [clj-oauth "1.3.1-SNAPSHOT"]
-                 [clj-apache-http "2.3.2-SNAPSHOT"]
+                 [org.clojars.tavisrudd/clj-apache-http "2.3.2-SNAPSHOT"]
                  [org.clojure/data.json "0.1.2"]
                  [org.mobicents.external.freetts/cmulex "1.0"]
                  [org.mobicents.external.freetts/freetts "1.0"]
@@ -19,5 +19,4 @@
                  [org.mobicents.external.freetts/en_us "1.0"]
                  [org.mobicents.external.freetts/cmu_us_kal "1.0"]]
   :dev-dependencies [[lein-marginalia "0.7.1"]]
-  :repositories {"local" ~(str (.toURI (java.io.File. "maven_local")))}
   :ring {:handler readpod.api/app})
