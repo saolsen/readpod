@@ -11,3 +11,5 @@ pom.xml
 .env
 docs
 .DS_Store
+
+env
