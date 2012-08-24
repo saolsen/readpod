@@ -3,13 +3,11 @@
         readpod.queue))
 
 (deftest test-local-queue
-  (testing "some stuff"
-    (let [local (get-local-queue)]
-      (send-message local 1)
-      (send-message local 2)
-      (send-message local 3)
-      (is (= 2 (consume-message local #(+ 1 %))))
-      (is (= 2 (consume-message local identity)))
-      (send-message local 4)
-      (is (= 3 (consume-message local identity)))
-      (is (= 4 (consume-message local identity))))))
+  (testing "Test the local queue"
+    (let [local (new-memory-queue)
+          test (atom [])]
+      (process local #(swap! test conj %))
+      (enqueue local 1)
+      (enqueue local 2)
+      (enqueue local 3)
+      (is (= [1 2 3] @test)))))

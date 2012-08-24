@@ -78,13 +78,13 @@
       (clean-up id)
       (resp/file-response (str id ".wav")))))
 
-;; Routes
-(defroutes main-routes
-  (GET "/" request (index-handler request))
-  (GET "/authenticated" request (authed-handler request))
-  (GET "/article/:id" request (article-handler request))
-  (route/resources "/")
-  (route/not-found "Page not found"))
-
-(def app
-  (file/wrap-file-info (handler/site main-routes)))
+(defn get-app
+  "Takes a queue (and later a store or whatever) and creates the main api."
+  [queue store]
+  (let [routes (defroutes main-routes
+                 (GET "/" request (index-handler request))
+                 (GET "/authenticated" request (authed-handler request))
+                 (GET "/article/:id" request (article-handler request))
+                 (route/resources "/")
+                 (route/not-found "Page not found"))]
+    (file/wrap-file-info (handler/site routes))))
