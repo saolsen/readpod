@@ -5,7 +5,7 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-	<title>Latercast » </title>
+	<title>Latercast</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,15 +13,10 @@
 	
 	<script src="js/modernizr.js"></script>
 	<script src="js/soundmanager2.js"></script>
-	<script src="js/latercast-player.js"></script>
-	<script>
-		soundManager.setup({
-		  flashVersion: 8,
-		  useHighPerformance: true, // keep flash on screen, boost performance
-		  wmode: 'transparent', // transparent SWF, if possible
-		  url: 'swf/'
-		});
-	</script>
+<!--	<script src="js/latercast-player.js"></script> -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+        type="text/javascript"></script>
+<script src="js/readpod.js"></script>
 
 	<link rel="stylesheet" href="css/screen.css">
 
@@ -29,7 +24,7 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-<!--<link rel="shortcut icon" href="img/favicon.ico">
+        <!--<link rel="shortcut icon" href="img/favicon.ico">
 	<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png"> -->
@@ -73,7 +68,7 @@
 				</div><!-- end player > header -->
 
 				<ul class="playlist">
-					<li class="track clearfix">
+					<li class="track clearfix" id="article-id">
 						<div class="track_number">#</div>
 						<a class="track_title" href="#">Title</a>
 						<div class="track_meta">000 words • source</div>
