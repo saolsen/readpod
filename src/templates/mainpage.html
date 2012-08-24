@@ -1,13 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-  <title>readpod</title>
-  <link rel="stylesheet" type="text/css" href="bootstrap.css" />
+	<meta charset="utf-8">
+	<title>Latercast » </title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<script src="js/modernizr.js"></script>
+	<script src="js/soundmanager2.js"></script>
+	<script src="js/latercast-player.js"></script>
+	<script>
+		soundManager.setup({
+		  flashVersion: 8,
+		  useHighPerformance: true, // keep flash on screen, boost performance
+		  wmode: 'transparent', // transparent SWF, if possible
+		  url: 'swf/'
+		});
+	</script>
+
+	<link rel="stylesheet" href="css/screen.css">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+<!--<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png"> -->
 </head>
+
 <body>
-  <h1> Your reading list </h1>
-  <ul id="titles">
-  </ul>
-  <p>
-    Right click save as to download audio files.
+
+	<div class="container">
+
+		<div id="header" class="clearfix">
+			<h1>Latercast</h1>
+			<div class="account">
+				Logged in as User Name |
+				<a href="#">Sign out</a>
+			</div>
+		</div>
+
+		<div id="secondary">
+			<div class="promo desktop">
+				<h3>Listen to your Reading List in your podcast app</h3>
+				<a class="subscribe">Subscribe</a>
+			</div>
+			<div class="promo mobile ios">
+				<h3>Listen to your Reading List in your favorite podcast app</h3>
+				<a class="subscribe">Subscribe in Podcasts</a>
+				<small>or click and hold to copy URL for another app</small>
+			</div>
+		</div><!-- end secondary -->
+
+		<div id="primary">
+
+			<div id="latercast_player">
+
+				<div class="list_header clearfix">
+					<div class="list_meta">
+						Your playlist
+					</div>
+					<div class="list_actions">
+						Play all 5 tracks
+					</div>
+				</div><!-- end player > header -->
+
+				<ul class="playlist">
+					<li class="track clearfix">
+						<div class="track_number">#</div>
+						<a class="track_title" href="#">Title</a>
+						<div class="track_meta">000 words • source</div>
+						<div class="track_actions">
+							<a class="action download inline-exclude" href="#">Download track</a>
+							<a class="action read" href="#">Read now</a>
+						</div>
+					</li>
+					<li class="track clearfix">
+						<div class="track_number">#</div>
+						<a class="track_title" href="#">Title</a>
+						<div class="track_meta">000 words • source</div>
+						<div class="track_actions">
+							<a class="action download inline-exclude" href="#">Download track</a>
+							<a class="action read" href="#">Read now</a>
+						</div>
+					</li>
+					<li class="track clearfix">
+						<div class="track_number">#</div>
+						<a class="track_title" href="#">Title</a>
+						<div class="track_meta">000 words • source</div>
+						<div class="track_actions">
+							<a class="action download inline-exclude" href="#">Download track</a>
+							<a class="action read" href="#">Read now</a>
+						</div>
+					</li>
+				</ul><!-- end player > playlist -->
+
+
+			</div><!-- end player -->
+
+		</div><!-- end primary -->
+
+		<div id="footer">
+			<!-- TK -->
+		</div><!-- end footer -->
+
+	</div><!-- container -->
+
+
+<!-- ======================================================
+                                                                                        
+	LATERCAST v1.0 | AN EXPERIMENT BUILT IN THE ARC90 LAB
+
+======================================================== -->
+
 </body>
-<html>
+</html>

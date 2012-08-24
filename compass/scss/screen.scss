@@ -1,0 +1,12 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";						// Reset
+@import "compass/css3";							// Mixins for shorter/crossbrowser CSS3 goodies
+@import "compass/css3/images";					// Mixins for background images and gradients
+@import "compass/css3/transition";				// Mixins for transitions
+@import "compass/utilities/general/clearfix";	// Mixins for cheap cleafixes
+@import "compass/typography/text/replacement";	// Mixins for image/text replacement
+@import "layout";								// Design + font imports

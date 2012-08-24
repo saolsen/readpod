@@ -9,5 +9,8 @@ pom.xml
 .lein-failures
 .lein-plugins
 .env
+env
 docs
 .DS_Store
+compass/.sass-cache
+resources/public/css
