@@ -33,7 +33,7 @@
 (defn html-page
   [data session]
   {:status 200
-   :headers {"Content-Type" "text/html"}
+   :headers {"Content-Type" "text/html; charset=utf-8"}
    :body data
    :session session})
 
