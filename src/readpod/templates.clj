@@ -21,7 +21,7 @@
 ;; Templates
 (html/deftemplate index "templates/index.html"
   [auth-url]
-  [:div#login] (html/html-content (link auth-url "Login")))
+  [:div#homepage_login] (html/html-content (link auth-url "Log in with Readability")))
 
 (html/deftemplate mainpage "templates/mainpage.html"
   [title-id-pairs]
