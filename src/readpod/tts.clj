@@ -36,3 +36,26 @@
 
 ;; I'm using the default freetts voice right now which isn't the
 ;; greatest. There are other voices that can be used that sound better.
+
+;; Going to switch to using festival for this. This means that the
+;; clojure worker will communicate with an external festival
+;; server. Because it's tricky to set up festival on osx I'll also
+;; hopefully have a local version that just uses osx's text to speech
+;; capabilities.
+
+(defprotocol TTSEngine
+  "Text to speech processing engine"
+  (start-up [this]
+    "Any initialization that has to be done before it can be used.")
+  (shut-down [this]
+    "Any deallocation or file cleanup that should be done")
+  (render [this text]
+    "Renders the text to audio, stores it on s3 and returns the url that
+     can be used to hit it."))
+
+;; A TTS implementation that talks to an external Festival TTS Server
+(deftype FestivalTTS [server]
+  TTSEngine
+  (start-up [this] nil)
+  (shut-down [this] nil)
+  (render [this text] nil))

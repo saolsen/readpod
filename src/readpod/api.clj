@@ -1,10 +1,14 @@
 (ns readpod.api
-  (:use compojure.core)
+  (:use [ring.adapter.jetty]
+        [taoensso.timbre :as timbre
+         :only (trace debug info warn error fatal spy)]
+        [compojure.core])
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
             [ring.util.response :as resp]
             [ring.middleware.file-info :as file]
             [clojure.string :as str]
+            [clojure.data.json :as j]
             [clojure.java.io :as io]
             [readpod.oauth :as oauth]
             [readpod.readability :as read]
@@ -29,8 +33,15 @@
 (defn html-page
   [data session]
   {:status 200
-   :headers {"Content-Type" "text/html"}
+   :headers {"Content-Type" "text/html; charset=utf-8"}
    :body data
+   :session session})
+
+(defn json-resp
+  [data session]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body (j/json-str data)
    :session session})
 
 ;; Page Handlers
@@ -38,10 +49,12 @@
   "Main page of app, loaded once oauth is set up"
   [auth-token]
   (let [articles (read/get-reading-list auth-token)
-        title-id-pairs (map (fn [x] {:title (:title (:article x))
-                                     :id (:id (:article x))}) articles)]
+        article-maps (map #(let [article (:article %)]
+                             {:title (:title article)
+                              :id (:id article)
+                              :wordcount (:word_count article)}) articles)]
     (html-page (temp/render
-                (temp/mainpage title-id-pairs)) {:auth-token auth-token})))
+                (temp/mainpage article-maps)) {:auth-token auth-token})))
 
 (defn index-handler
   "Index, sets up the oauth if not authorized, otherwise loads main page"
@@ -66,17 +79,24 @@
         auth-token (oauth/get-access-token request-token verifyer)]
     (main-page-handler auth-token)))
 
+;;(defn article-handler
+;;  "Returns the location of article, queue's for rendering if it isn't already."
+;;  [request]
+;;  (let [params (:params request)
+;;        auth-token (:auth-token (:session request))
+;;        id (first (str/split (:id params) #".wav"))
+;;        text (read/get-article-text auth-token id)
+;;        audio-file (tts/render text id)]
+;;    (do
+;;      (clean-up id)
+;;      (resp/file-response (str id ".wav")))))
+
+;; STUB
 (defn article-handler
-  "Turns the article into text and returns the audio file."
+  "Returns the location of the articles mp3, if the article doesn't exist yet
+   it queue's it for rendering."
   [request]
-  (let [params (:params request)
-        auth-token (:auth-token (:session request))
-        id (first (str/split (:id params) #".wav"))
-        text (read/get-article-text auth-token id)
-        audio-file (tts/render text id)]
-    (do
-      (clean-up id)
-      (resp/file-response (str id ".wav")))))
+  (json-resp "https://s3.amazonaws.com/com.readpod.articles/boom.wav"))
 
 (defn get-app
   "Takes a queue (and later a store or whatever) and creates the main api."
