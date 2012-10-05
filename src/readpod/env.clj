@@ -1,5 +1,7 @@
 (ns readpod.env
-  (:require [clojure.data.json :as j]))
+  (:use
+   [taoensso.timbre :as timbre
+    :only (trace debug info warn error fatal spy)]))
 
 ;; Code that deals with extracting values from environment variables.
 ;; Alternatively they can be in a json file called config.js
@@ -24,4 +26,5 @@
          :AWSSECRET (get env-vars "AWSSECRET")
          }
         (throw (Exception. "Please Define All Environment Variables")))))
+  (debug vars)
 )
