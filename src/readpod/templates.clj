@@ -43,7 +43,7 @@
 ;; Templates
 (html/deftemplate index "templates/index.html"
   [auth-url]
-  [:div#login] (html/html-content (link auth-url "Login")))
+  [:div#homepage_login] (html/html-content (link auth-url "Log in with Readability")))
 
 ;; Takes a list of articles in the form
 ;;     {:title "Article Title"
@@ -53,5 +53,5 @@
 (html/deftemplate mainpage "templates/mainpage.html"
   [articles username]
   [:ul.playlist] (html/html-content
-                  (apply str (map get-article-li articles)))
+    (apply str (map get-article-li articles)))
   [:span.uname] (html/content username))
