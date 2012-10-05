@@ -51,6 +51,7 @@
 ;;      :id readability-page-id}
 ;;
 (html/deftemplate mainpage "templates/mainpage.html"
-  [articles]
+  [articles username]
   [:ul.playlist] (html/html-content
-                  (apply str (map get-article-li articles))))
+    (apply str (map get-article-li articles)))
+  [:span.uname] (html/content username))
