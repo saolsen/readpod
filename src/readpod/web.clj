@@ -18,4 +18,4 @@
   (info "Starting Web Process")
   (env/bind-vars)
   (core/setup-connections)
-  (run-jetty api/api {:port (Integer/parseInt (System/getenv "PORT"))}))
+  (run-jetty api/api {:port (Integer/parseInt (System/getenv "PORT_WWW"))}))
