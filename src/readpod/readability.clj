@@ -12,6 +12,16 @@
       (s/replace #"(&)([^;]*)(;)" " ")
       (s/replace #"(<)([^<>]*)(>)" " ")))
 
+(defn get-user
+  "Gets the users info"
+  [auth-token]
+  (let [response (oa/request
+                  auth-token
+                  :get "https://www.readability.com/api/rest/v1/users/_current"
+                  {})]
+    (:username (:content response))))
+
+
 (defn get-reading-list
   "Retrieves the reading list for the user."
   [auth-token]
