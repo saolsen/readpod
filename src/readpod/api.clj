@@ -27,7 +27,7 @@
 (defn json-resp
   [data session]
   {:status 200
-   :headers {"Content-Type" "text/html"}
+   :headers {"Content-Type" "application/json"}
    :body (j/json-str data)
    :session session})
 
@@ -35,16 +35,18 @@
 (defn main-page-handler
   "Main page of app, loaded once oauth is set up"
   [request]
-  (let [
-        user-id (:user-id (:session request))
+  (debug "start main page handler")
+  (let [user-id (:user-id (:session request))
+        _ (debug user-id)
         auth-token (core/get-token-by-userid user-id)
+        _ (debug auth-token)
         articles (read/get-reading-list auth-token)
         article-maps (map #(let [article (:article %)]
                              {:title (:title article)
                               :id (:id article)
                               :wordcount (:word_count article)}) articles)]
     (html-page (temp/render
-                (temp/mainpage article-maps)) {:user-id user-id})))
+                (temp/mainpage article-maps user-id)) {:user-id user-id})))
 
 (defn index-handler
   "Index, sets up the oauth if not authorized, otherwise loads main page"
@@ -62,7 +64,6 @@
 (defn authed-handler
   "Oauth callback, finishes the authentication and loads the main page"
   [request]
-  (debug request)
   (let [params (:params request)
         verifyer (:oauth_verifier params)
         oauth-token (:oauth_token params)
@@ -76,12 +77,38 @@
      :body ""
      :session {:user-id user-id}}))
 
+(defn logout-handler
+  "Logs out"
+  [request]
+  {:status 302
+   :headers {"Location" (str "http://" (:BASEURL env/vars))}
+   :body ""
+   :session {}})
+
 ;; Should return the url to the article, if it's not already rendered it should
 ;; check and see if rendering is in process, if so tell the user it's processing.
 ;; If it isn't already processing it should add it to the queue, save that processing
 ;; has begun and tell the user it's processing.
 
-(defn article-handler [request] (println "here's your article bro"))
+(defn article-handler
+  [request]
+  (if-let [user-id (:user-id (:session request))]
+    (let [article-id (:id (:route-params request))
+          is-rendered (core/check-render-status article-id)]
+      (if (= is-rendered :processing)
+        (json-resp {:status "Processing"} {:user-id user-id})
+        (if (= is-rendered :none)
+          ;; Add article to queue
+          (do
+            (core/queue-article article-id)
+            (json-resp {:status "Processing"} {:user-id user-id}))
+          ;; Return article url
+          (json-resp {:status "Rendered" :url is-rendered}
+                     {:user-id user-id}))))
+    {:status 401
+     :headers {"Content-Type" "text/html"}
+     :body "Unauthorized"
+     :session {}}))
 
 ;;(defn article-handler
 ;; "Returns the location of article, queue's for rendering if it isn't already."
@@ -109,7 +136,9 @@
   (GET "/article/:id" request
     (article-handler request))
   (GET "/podcast/:id" request
-    (podcast-handler request))
+       (podcast-handler request))
+  (GET "/logout" request
+       (logout-handler request))
   (route/resources "/")
   (route/not-found "Page not found"))
 

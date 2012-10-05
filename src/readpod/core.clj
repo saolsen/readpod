@@ -75,8 +75,9 @@
 
 ;; # SQS
 (defn queue-article
-  [article-id text]
-  (sqs/send sqs-client q (pr-str {:id article-id :text text})))
+  [article-id]
+  (sqs/send sqs-client q (pr-str {:id article-id}))
+  (record-processing-article article-id))
 
 (defn consume-messages
   "Consumes messages from the queue (forever) with the function passed in."
