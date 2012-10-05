@@ -1,0 +1,6 @@
+www:
+  type: custom
+  buildscript: scripts/build_web
+  process: java -jar latercast-web.jar
+  ports:
+    www: http
