@@ -14,14 +14,16 @@
 ;; Code to deal with the oauth authentication needed to use the
 ;; readability api.
 
-(def consumer (client/make-consumer
-               (:READAPIKEY env/vars)
-               (:READAPISECRET env/vars)
-               "https://www.readability.com/api/rest/v1/oauth/request_token/"
-               "https://www.readability.com/api/rest/v1/oauth/access_token/"
-               "https://www.readability.com/api/rest/v1/oauth/authorize/"
-               :hmac-sha1))
-
+(defn bind-consumer
+  []
+  (def consumer
+    (client/make-consumer
+     (:READAPIKEY env/vars)
+     (:READAPISECRET env/vars)
+     "https://www.readability.com/api/rest/v1/oauth/request_token/"
+     "https://www.readability.com/api/rest/v1/oauth/access_token/"
+     "https://www.readability.com/api/rest/v1/oauth/authorize/"
+     :hmac-sha1)))
 
 (defn get-request-token [callback-uri]
   (client/request-token consumer callback-uri))

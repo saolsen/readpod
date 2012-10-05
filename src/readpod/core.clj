@@ -6,7 +6,8 @@
             [cemerick.rummage :as sdb]
             [cemerick.rummage.encoding :as enc]
             [aws.sdk.s3 :as s3]
-            [readpod.env :as env]))
+            [readpod.env :as env]
+            [readpod.oauth :as oauth]))
 
 (defn setup-connections
   "Binds a bunch of vars at runtime based on env vars"
@@ -21,6 +22,9 @@
   (def sqs-client
     (sqs/create-client (:AWSKEY env/vars) (:AWSSECRET env/vars)))
   (def q (sqs/create-queue sqs-client "readpod-articles"))
+  ;; This could maybe just be a var in the core ns but it goes with
+  ;; oauth stuff.
+  (oauth/bind-consumer)
   )
 
 ;; # S3

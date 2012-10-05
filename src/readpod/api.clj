@@ -51,6 +51,7 @@
 (defn index-handler
   "Index, sets up the oauth if not authorized, otherwise loads main page"
   [request]
+  (debug "Hit /")
   (if (:user-id (:session request))
     (main-page-handler request)
     (let [callback-route (str "http://"
