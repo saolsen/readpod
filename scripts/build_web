@@ -1,6 +1,4 @@
 #!/bin/bash
-gem install compass
-compass compile
 lein upgrade
 lein deps
 lein uberjar readpod.web

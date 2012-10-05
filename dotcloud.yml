@@ -4,7 +4,3 @@ www:
   process: java -jar latercast-web.jar
   ports:
     www: http
-  systempackages:
-    - ruby1.9.2
-    - gem1.9.2
-
