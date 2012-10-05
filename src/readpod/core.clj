@@ -23,7 +23,7 @@
     (sqs/create-client (:AWSKEY env/vars) (:AWSSECRET env/vars)))
   (def q (sqs/create-queue sqs-client "readpod-articles"))
   ;; This could maybe just be a var in the core ns but it goes with
-  ;; oauth stuff.
+  ;; oauth stuff. and yeah
   (oauth/bind-consumer)
   )
 
