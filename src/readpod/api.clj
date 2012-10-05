@@ -62,17 +62,17 @@
 (defn authed-handler
   "Oauth callback, finishes the authentication and loads the main page"
   [request]
-  (println request)
+  (debug request)
   (let [params (:params request)
         verifyer (:oauth_verifier params)
         oauth-token (:oauth_token params)
-;        request-token (:request-token (:session request))
-        auth-token (oauth/get-access-token oauth-token verifyer)
+        request-token (:request-token (:session request))
+        auth-token (oauth/get-access-token request-token verifyer)
         user-id (read/get-user auth-token)]
     (core/save-token user-id auth-token)
     ;; Redirect to the main page
     {:status 302
-     :headers {"Location" (str "http:// " (:BASEURL env/vars))}
+     :headers {"Location" (str "http://" (:BASEURL env/vars))}
      :body ""
      :session {:user-id user-id}}))
 

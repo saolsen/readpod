@@ -34,11 +34,17 @@
   )
 
 ;; # SDB
+(defn to-token
+  "unserializes the token so we can pass it to the api calling functions"
+  [token]
+  (let [clj-vals (map read-string token)]
+    (reduce #(assoc %1 (first %2) (second %2)) {} clj-vals)))
+
 (defn get-token-by-userid
   "Returns the user's oauth token or nil if they aren't authorized."
   [user-id]
   (if-let [record (sdb/get-attrs sdb-config "readpod.users" user-id)]
-    (:token record)))
+    (to-token (:token record))))
 
 (defn save-token
   "Saves a users oauth token."
