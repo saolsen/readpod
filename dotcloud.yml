@@ -4,3 +4,8 @@ www:
   process: java -jar latercast-web.jar
   ports:
     www: http
+worker:
+  type: custom
+  process: echo "hello world"
+  systempackages:
+    - festlex-cmu
