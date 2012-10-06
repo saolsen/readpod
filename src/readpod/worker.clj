@@ -48,7 +48,7 @@
     (debug "mp3name: " mp3name)
     ;; Convert to audio
     (info "Rendering" article-id)
-    (render article-text wavname)
+    (spy (render article-text wavname))
     ;; Convert to mp3
     (info "Converting")
     (debug (convert wavname mp3name))
