@@ -26,5 +26,4 @@
   :plugins [[lein-marginalia "0.7.1"]
             [lein-midje "2.0.0-SNAPSHOT"]
             [lein-swank "1.4.4"]]
-  :main readpod.worker
   :ring {:handler readpod.api/app})
