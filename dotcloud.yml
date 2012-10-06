@@ -7,7 +7,6 @@ www:
 worker:
   type: custom
   buildscript: scripts/build_worker
-  process: 
   systempackages:
     - festival
   processes:
