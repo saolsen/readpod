@@ -30,7 +30,7 @@
 ;; # S3
 (defn add-file
   "Adds an audio file to the bucket."
-  [])
+  [filename id])
 
 (defn get-url
   "Gets the url to an audio file"
@@ -79,8 +79,8 @@
 
 ;; # SQS
 (defn queue-article
-  [article-id]
-  (sqs/send sqs-client q (pr-str {:id article-id}))
+  [article-id token]
+  (sqs/send sqs-client q (pr-str {:id article-id :user-token token}))
   (record-processing-article article-id))
 
 (defn consume-messages
