@@ -11,6 +11,8 @@
 ;; READAPISECRET - Readability API secret
 ;; AWSKEY        - AWS nKey
 ;; AWSSECRET     - AWS Secret
+;; PLATFORM      - OSX or LINUX - used so we can test locally with the
+;; say command.
 
 (defn bind-vars
   "Binds vars at runtime instead of compile time"
@@ -24,6 +26,7 @@
          :READAPISECRET (get env-vars "READAPISECRET")
          :AWSKEY (get env-vars "AWSKEY")
          :AWSSECRET (get env-vars "AWSSECRET")
+         :PLATFORM (get env-vars "PLATFORM")
          }
         (throw (Exception. "Please Define All Environment Variables")))))
   (debug vars)

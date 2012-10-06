@@ -7,11 +7,16 @@ function getAndPlayAudio(article_id) {
     $.ajax({
         url: 'article/' + article_id,
         success: function(data) {
-            soundManager.createSound({
-                id: article_id,
-                url: data
-            });
-            soundManager.play(article_id);
+            if (data.status === "Rendered") {
+                soundManager.createSound({
+                    id: article_id,
+                    url: data.url
+                });
+                soundManager.play(article_id);
+            }
+            else if (data.status === "Processing") {
+                setTimeout(function () { getAndPlayAudio(article_id); }, 5000);
+            }
         }
     });
 }
@@ -29,18 +34,18 @@ $(document).ready(function () {
         useHighProformance: true,
         wmode: 'transparent',
 
-        onready: function() {
+//        onready: function() {
 
-            var mySound = soundManager.createSound({
-                id: 'aSound',
-                url: '/path/to/an.mp3'
+//            var mySound = soundManager.createSound({
+//                id: 'aSound',
+//                url: '/path/to/an.mp3'
                 // onload: function() { console.log('sound loaded!', this); }
                 // other options here..
-            });
+//            });
 
-            mySound.play();
+//            mySound.play();
 
-        },
+//        },
 
         // optional: ontimeout() callback for handling start-up failure
 

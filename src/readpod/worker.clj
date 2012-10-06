@@ -14,12 +14,12 @@
   "Runs text through festival, gets saved as a wav file.
    (should end in .wav)"
   [text filename]
-  (let [escaped-text (str/replace text #"\"" "\\\"")]
-    (shell/sh
-     ;; REAL FOR FESTIVAL
-     "echo" escaped-text "|" "festival_client" "--ttw" "|" "cat" ">" filename)))
-     ;; OSX for local dev
-     ;"say" "-o" filename "--data-format=LEF32@8000" text))
+  (let [platform (:PLATFORM env/vars)]
+    (if (= platform "OSX")
+      (shell/sh
+       "say" "-o" filename "--data-format=LEF32@8000" text)
+      (let [audio (shell/sh "festival_client" "--ttw" :in text :out :bytes)]
+        (shell/sh "cat" ">" filename :in audio)))))
 
 (defn convert
   "Converts the wav file to an mp3 file.
@@ -58,7 +58,9 @@
     ;; record that we're done processing that file
     (info "Recording")
     (core/record-completed-article article-id (core/get-url article-id))
-    ;; TODO: delete the files on the local filesystem.
+    ;; Delete the files on the local filesystem.
+    (delete wavname)
+    (delete mp3name)
     ))
 
 (defn -main [& args]
