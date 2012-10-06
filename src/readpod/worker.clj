@@ -3,7 +3,8 @@
   (:require [readpod.env :as env]
             [readpod.core :as core]
             [readpod.readability :as read]
-            [clojure.java.shell :as shell])
+            [clojure.java.shell :as shell]
+            [clojure.string :as str])
   (:use [taoensso.timbre :as timbre
          :only (trace debug info warn error fatal spy)])
   (:gen-class))
@@ -13,11 +14,12 @@
   "Runs text through festival, gets saved as a wav file.
    (should end in .wav)"
   [text filename]
-  (shell/sh
-   ;; REAL FOR FESTIVAL
-   "echo" text "|" "festival_client" "--ttw" "|" "cat" ">" filename))
-   ;; OSX for local dev
-   ;"say" "-o" filename "--data-format=LEF32@8000" text))
+  (let [escaped-text (str/replace text #"\"" "\\\"")]
+    (shell/sh
+     ;; REAL FOR FESTIVAL
+     "echo" escaped-text "|" "festival_client" "--ttw" "|" "cat" ">" filename)))
+     ;; OSX for local dev
+     ;"say" "-o" filename "--data-format=LEF32@8000" text))
 
 (defn convert
   "Converts the wav file to an mp3 file.
