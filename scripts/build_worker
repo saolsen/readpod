@@ -1,0 +1,5 @@
+#!/bin/bash
+lein upgrade
+lein deps
+lein uberjar readpod.web
+cp ./*-standalone.jar ~/latercast-worker.jar

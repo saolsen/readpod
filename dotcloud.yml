@@ -4,3 +4,12 @@ www:
   process: java -jar latercast-web.jar
   ports:
     www: http
+worker:
+  type: custom
+  buildscript: scripts/build_worker
+  process: 
+  systempackages:
+    - festival
+  processes:
+    festival: festival --server
+    worker: java -jar latercast-worker.jar

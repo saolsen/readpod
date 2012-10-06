@@ -6,7 +6,7 @@
             [clojure.java.shell :as shell])
   (:use [taoensso.timbre :as timbre
          :only (trace debug info warn error fatal spy)])
-  (:gen-class))
+  (:gen-class :main :true))
 
 ;;
 (defn render
@@ -15,9 +15,9 @@
   [text filename]
   (shell/sh
    ;; REAL FOR FESTIVAL
-   ;;   "echo" "|" "festival_client" "--ttw" "|" "cat" ">" filename))
+   "echo" text "|" "festival_client" "--ttw" "|" "cat" ">" filename))
    ;; OSX for local dev
-   "say" "-o" filename "--data-format=LEF32@8000" text))
+   ;"say" "-o" filename "--data-format=LEF32@8000" text))
 
 (defn convert
   "Converts the wav file to an mp3 file.
@@ -55,7 +55,9 @@
     (core/add-file mp3name)
     ;; record that we're done processing that file
     (info "Recording")
-    (core/record-completed-article article-id (core/get-url article-id))))
+    (core/record-completed-article article-id (core/get-url article-id))
+    ;; TODO: delete the files on the local filesystem.
+    ))
 
 (defn -main [& args]
   (info "Starting Worker Process")
