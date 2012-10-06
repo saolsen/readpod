@@ -30,12 +30,14 @@
 ;; # S3
 (defn add-file
   "Adds an audio file to the bucket."
-  [filename id])
+  [filename]
+  (s3/put-object cred "com.readpod.articles"
+                 filename (clojure.java.io/file filename)))
 
 (defn get-url
   "Gets the url to an audio file"
   [article-id]
-  )
+  (str "https://s3.amazonaws.com/com.readpod.articles/" article-id ".mp3"))
 
 ;; # SDB
 (defn to-token
@@ -80,11 +82,13 @@
 ;; # SQS
 (defn queue-article
   [article-id token]
+  (info "Adding article to queue")
+  (info {:id article-id :user-token token})
   (sqs/send sqs-client q (pr-str {:id article-id :user-token token}))
   (record-processing-article article-id))
 
 (defn consume-messages
-  "Consumes messages from the queue (forever) with the function passed in."
+  "Consumes messages from the queue (forever) with the function passed ion."
   [funct]
   (doall (map
           (sqs/deleting-consumer sqs-client funct)

@@ -22,10 +22,8 @@
 (defn convert
   "Converts the wav file to an mp3 file.
    filenames must be x.wav and x.mp3"
-  [old_filename new_filename]
-  (shell/sh
-   ;; You can '$ brew install lame' for OSX
-   "lame" "–h –b=192" old_filename new_filename))
+  [old-file new-file]
+  (shell/sh "lame" "-h" "-b=192" old-file new-file))
 
 (defn delete
   "Deletes a file"

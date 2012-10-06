@@ -100,8 +100,8 @@
         (json-resp {:status "Processing"} {:user-id user-id})
         (if (= is-rendered :none)
           ;; Add article to queue
-          (do
-            (core/queue-article article-id)
+          (let [token (core/get-token-by-userid user-id)]
+            (core/queue-article article-id token)
             (json-resp {:status "Processing"} {:user-id user-id}))
           ;; Return article url
           (json-resp {:status "Rendered" :url is-rendered}
