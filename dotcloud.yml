@@ -9,6 +9,7 @@ worker:
   buildscript: scripts/build_worker
   systempackages:
     - festival
+    - lame
   processes:
     festival: festival --server
     worker: java -jar latercast-worker.jar
