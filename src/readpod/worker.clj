@@ -6,7 +6,7 @@
             [clojure.java.shell :as shell])
   (:use [taoensso.timbre :as timbre
          :only (trace debug info warn error fatal spy)])
-  (:gen-class :main :true))
+  (:gen-class))
 
 ;;
 (defn render
