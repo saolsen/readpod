@@ -10,6 +10,11 @@
   (:gen-class))
 
 ;;
+(defn write-file
+  [b filename]
+  (with-open [w (clojure.java.io/output-stream filename)]
+    (.write w b)))
+
 (defn render
   "Runs text through festival, gets saved as a wav file.
    (should end in .wav)"
@@ -18,8 +23,8 @@
     (if (= platform "OSX")
       (shell/sh
        "say" "-o" filename "--data-format=LEF32@8000" text)
-      (let [audio (shell/sh "festival_client" "--ttw" :in text :out :bytes)]
-        (shell/sh "cat" ">" filename :in audio)))))
+      (let [audio (shell/sh "festival_client" "--ttw" :in text :out-enc :bytes)]
+        (write-file (:out audio) filename)))))
 
 (defn convert
   "Converts the wav file to an mp3 file.
