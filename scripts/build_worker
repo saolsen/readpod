@@ -1,5 +1,5 @@
 #!/bin/bash
 lein upgrade
 lein deps
-lein uberjar readpod.web
+lein uberjar readpod.worker
 cp ./*-standalone.jar ~/latercast-worker.jar
