@@ -4,7 +4,8 @@ Lets you download your readability reading list as an audio podcast.
 
 ## About
 
-prototype on dotcloud
+prototype on dotcloud, needs migration to aws as the worker needs more
+memory than dotcloud gives.
 
 ## TODO
 
