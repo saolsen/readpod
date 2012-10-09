@@ -8,7 +8,7 @@
 
 $primaryColor:    #5f417a;
 $readabilityRed:  #9c0001;
-$lightColor:      #737373;
+$lightColor:      #999999;
 $highlightColor:  #000000;
 $shadowColor:     rgba(0,0,0,.4);
 
@@ -62,10 +62,10 @@ a:visited {
     margin: 0 auto;
     @include replace-text-with-dimensions('../img/logo-560.png');
     @media (min-width: 685px) {
-      height: 49px;
-      width: 392px;
+      height: 35px;
+      width: 280px;
       float: left;
-      background-size: 392px 49px;
+      background-size: 280px 35px;
     }
     @media (max-width: 685px) {
       width: 90%;
@@ -218,6 +218,9 @@ a:visited {
           text-indent: 200%;
           overflow: hidden;
         }
+        .track_title{
+          color: $primaryColor;
+        }
         @media (min-width: 685px) {
           .track_actions {
             opacity: 1;
@@ -226,7 +229,7 @@ a:visited {
       }
 
       &+ .track {
-      border-top: 1px solid lighten($lightColor, 45);}
+      border-top: 1px solid lighten($lightColor, 35);}
 
       @media (min-width: 685px) {
         &:last-child {
@@ -236,7 +239,7 @@ a:visited {
       }
 
       .track_number {
-        color: lighten($lightColor, 35);
+        color: lighten($lightColor, 15);
         width: 30px;
         text-align: center;
         font-family: "Asap-Bold", Helvetica, Arial, sans-serif;
@@ -254,12 +257,13 @@ a:visited {
         @media (min-width: 685px) {
           margin: 0 55px 0 40px; // room for track_number and track_actions
         }
+
       }
 
       .track_meta {
-        font-size: .7em;
+        font-size: .6em;
         line-height: 1.4em;
-        letter-spacing: .05em;
+        letter-spacing: .1em;
         text-transform: uppercase;
         margin-left: 40px;
         color: $lightColor;
@@ -327,7 +331,7 @@ a:visited {
             position: relative;
             margin-right: 4em;
             height: 0.6em;
-            background-color: lighten($lightColor,45);
+            background-color: lighten($lightColor, 15);
             overflow: hidden;
             cursor:ew-resize;
             cursor:-moz-grab;
@@ -335,7 +339,7 @@ a:visited {
           }
 
           .loading {
-            background-color: lighten($lightColor,35);
+            background-color: lighten($lightColor, 25);
           }
 
           .position {
@@ -349,7 +353,7 @@ a:visited {
 
         .timing {
           font-family: "Asap-Bold", Helvetica, Arial, sans-serif;
-          color: lighten($lightColor,20);
+          color: lighten($lightColor, 15);
           position: absolute;
           top: 0em;
           right: 0em;
